@@ -19,8 +19,8 @@ class GameConstants {
   static const double ballRadius = 0.6;
   static const double paddleWidth = 5.0;
   static const double paddleHeight = 0.8;
-  static const double brickWidth = 3.5;
-  static const double brickHeight = 1.2;
+  static const double brickWidth = 2.0;
+  static const double brickHeight = 0.8;
   static const double brickPadding = 0.2;
 
   // Physics

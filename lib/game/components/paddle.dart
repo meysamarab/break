@@ -37,7 +37,9 @@ class Paddle extends BodyComponent {
   }
 
   void move(Vector2 delta) {
-    body.setTransform(body.position + Vector2(delta.x, 0), 0);
+    final halfWidth = GameConstants.paddleWidth / 2;
+    final newX = (body.position.x + delta.x).clamp(-20.0 + halfWidth, 20.0 - halfWidth);
+    body.setTransform(Vector2(newX, body.position.y), 0);
   }
 
   @override

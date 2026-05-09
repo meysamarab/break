@@ -43,6 +43,10 @@ class PauseOverlay extends StatelessWidget {
               game.restart();
             }),
             const SizedBox(height: 15),
+            _buildButton('SKIP LEVEL', GameConstants.neonCyan, () {
+              game.skipLevel();
+            }),
+            const SizedBox(height: 15),
             _buildButton('MAIN MENU', GameConstants.neonMagenta, () {
               game.resumeEngine();
               Navigator.of(context).pushAndRemoveUntil(

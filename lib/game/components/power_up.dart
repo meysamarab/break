@@ -24,7 +24,7 @@ class PowerUp extends BodyComponent with ContactCallbacks {
 
     final body = world.createBody(bodyDef);
 
-    final shape = CircleShape()..radius = 0.5;
+    final shape = CircleShape()..radius = 1.0;
     
     final fixtureDef = FixtureDef(
       shape,
@@ -46,14 +46,14 @@ class PowerUp extends BodyComponent with ContactCallbacks {
       ..color = color.withOpacity(0.5)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4.0);
 
-    canvas.drawCircle(Offset.zero, 0.5, glowPaint);
-    canvas.drawCircle(Offset.zero, 0.5, paint);
+    canvas.drawCircle(Offset.zero, 1.0, glowPaint);
+    canvas.drawCircle(Offset.zero, 1.0, paint);
     
     // Icon/Symbol
     final textPainter = TextPainter(
       text: TextSpan(
         text: _getSymbol(),
-        style: const TextStyle(color: Colors.white, fontSize: 0.6, fontWeight: FontWeight.bold),
+        style: const TextStyle(color: Colors.white, fontSize: 1.2, fontWeight: FontWeight.bold),
       ),
       textDirection: TextDirection.ltr,
     );

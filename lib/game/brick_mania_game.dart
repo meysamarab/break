@@ -73,9 +73,9 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
   void _generateLevel() {
     const double startY = -25;
     
-    // Scale level difficulty by levelId
-    final int rows = math.min(3 + (levelId ~/ 3), 8); // Max 8 rows
-    final int cols = 9;
+    // Scale level difficulty and size by levelId
+    final int rows = math.min(5 + levelId, 15); // Up to 15 rows
+    final int cols = 15; // 15 columns for smaller bricks
     
     final colors = [
       GameConstants.neonCyan,
@@ -86,34 +86,36 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
       GameConstants.neonGold,
     ];
 
+    final rnd = math.Random(levelId); // Use levelId as seed for consistent randomness per level
+
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
-        // Leave some empty spaces for higher levels
-        if (levelId > 5 && math.Random().nextDouble() < 0.1) continue;
+        // Random layout (creates gaps)
+        if (rnd.nextDouble() < 0.2 + (levelId * 0.015)) continue;
 
         final x = (c - (cols - 1) / 2) * (GameConstants.brickWidth + GameConstants.brickPadding);
         final y = startY + r * (GameConstants.brickHeight + GameConstants.brickPadding);
         
         BrickType type = BrickType.normal;
-        double rand = math.Random().nextDouble();
+        double randType = math.Random().nextDouble();
         
         // Difficulty scaling
         double movingChance = math.min(0.02 * levelId, 0.15);
         double explosiveChance = math.min(0.05 + 0.01 * levelId, 0.2);
         double durableChance = math.min(0.1 + 0.02 * levelId, 0.4);
 
-        if (rand < movingChance) {
+        if (randType < movingChance) {
           type = BrickType.moving;
-        } else if (rand < movingChance + explosiveChance) {
+        } else if (randType < movingChance + explosiveChance) {
           type = BrickType.explosive;
-        } else if (rand < movingChance + explosiveChance + durableChance) {
+        } else if (randType < movingChance + explosiveChance + durableChance) {
           type = BrickType.durable;
         }
         
         final brick = Brick(
           position: Vector2(x, y),
           type: type,
-          color: colors[r % colors.length],
+          color: colors[(r + c) % colors.length], // Mix colors
         );
         world.add(brick);
         bricksRemaining++;
@@ -200,6 +202,12 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
   void resumeGame() {
     overlays.remove('Pause');
     resumeEngine();
+  }
+
+  void skipLevel() {
+    resumeEngine();
+    overlays.remove('Pause');
+    completeLevel();
   }
 
   void completeLevel() {
