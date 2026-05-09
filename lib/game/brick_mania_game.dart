@@ -45,14 +45,14 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     final bottomLeft = Vector2(-20, 40);
     final bottomRight = Vector2(20, 40);
 
-    add(Boundary(topLeft, topRight)); // Top
-    add(Boundary(topLeft, bottomLeft)); // Left
-    add(Boundary(topRight, bottomRight)); // Right
-    add(Boundary(bottomLeft, bottomRight, isBottom: true)); // Bottom (Loss)
+    world.add(Boundary(topLeft, topRight)); // Top
+    world.add(Boundary(topLeft, bottomLeft)); // Left
+    world.add(Boundary(topRight, bottomRight)); // Right
+    world.add(Boundary(bottomLeft, bottomRight, isBottom: true)); // Bottom (Loss)
 
     // Add Paddle
     paddle = Paddle(Vector2(0, 35)); // Near the bottom (40 is bottom edge)
-    await add(paddle);
+    await world.add(paddle);
 
     // Add Ball
     await resetBall();
@@ -63,7 +63,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
 
   Future<void> resetBall() async {
     ball = Ball(Vector2(0, paddle.body.position.y - 1));
-    await add(ball);
+    await world.add(ball);
     ball.launch();
   }
 
@@ -101,7 +101,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
           type: type,
           color: colors[r % colors.length],
         );
-        add(brick);
+        world.add(brick);
         bricksRemaining++;
       }
     }
@@ -117,14 +117,14 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     bricksRemaining--;
     
     // Visual Polish: Particle Explosion
-    add(BrickExplosion(position: brick.body.position, color: brick.color));
+    world.add(BrickExplosion(position: brick.body.position, color: brick.color));
     
     // Haptic Feedback
     Vibration.vibrate(duration: 50, amplitude: 128);
 
     // Explosive logic
     if (brick.type == BrickType.explosive) {
-      final adjacentBricks = children.whereType<Brick>().where((b) {
+      final adjacentBricks = world.children.whereType<Brick>().where((b) {
         if (b == brick || b.isRemoving) return false;
         return b.body.position.distanceTo(brick.body.position) < (GameConstants.brickWidth * 1.5);
       }).toList();
@@ -137,7 +137,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     if (math.Random().nextDouble() < 0.15) {
         final types = PowerUpType.values;
         final type = types[math.Random().nextInt(types.length)];
-        add(PowerUp(brick.body.position.clone(), type));
+        world.add(PowerUp(brick.body.position.clone(), type));
     }
 
     if (bricksRemaining <= 0) {
@@ -163,8 +163,8 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     if (powerUp.type == PowerUpType.multiBall) {
       final b1 = Ball(Vector2(paddle.body.position.x - 1, paddle.body.position.y - 1));
       final b2 = Ball(Vector2(paddle.body.position.x + 1, paddle.body.position.y - 1));
-      await add(b1);
-      await add(b2);
+      await world.add(b1);
+      await world.add(b2);
       b1.body.applyLinearImpulse(Vector2(-5, -GameConstants.ballInitialVelocity));
       b2.body.applyLinearImpulse(Vector2(5, -GameConstants.ballInitialVelocity));
     }
@@ -191,9 +191,9 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     bricksRemaining = 0;
     
     // Clear existing components
-    children.whereType<Brick>().forEach((b) => b.removeFromParent());
-    children.whereType<Ball>().forEach((b) => b.removeFromParent());
-    children.whereType<PowerUp>().forEach((b) => b.removeFromParent());
+    world.children.whereType<Brick>().forEach((b) => b.removeFromParent());
+    world.children.whereType<Ball>().forEach((b) => b.removeFromParent());
+    world.children.whereType<PowerUp>().forEach((b) => b.removeFromParent());
     
     // Re-generate
     _generateDense5Level();
