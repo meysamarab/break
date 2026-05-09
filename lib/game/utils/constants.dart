@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GameConstants {
+  static TextStyle get neonTextFont => GoogleFonts.outfit(fontWeight: FontWeight.bold);
+
   // Theme Colors
   static const Color bgDeepPurple = Color(0xFF1A0033);
   static const Color bgNebula = Color(0xFF2D1B4A);

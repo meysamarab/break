@@ -25,12 +25,9 @@ class UserProgress {
   }
 }
 
-class ProgressNotifier extends StateNotifier<UserProgress> {
-  ProgressNotifier() : super(UserProgress()) {
-    _loadProgress();
-  }
-
-  void _loadProgress() {
+class ProgressNotifier extends Notifier<UserProgress> {
+  @override
+  UserProgress build() {
     final box = Hive.box('progress');
     final maxUnlockedLevel = box.get('maxUnlockedLevel', defaultValue: 1) as int;
     final crystals = box.get('crystals', defaultValue: 0) as int;
@@ -39,7 +36,7 @@ class ProgressNotifier extends StateNotifier<UserProgress> {
     final rawStars = box.get('levelStars', defaultValue: {}) as Map<dynamic, dynamic>;
     final levelStars = rawStars.map((key, value) => MapEntry(key as int, value as int));
 
-    state = UserProgress(
+    return UserProgress(
       maxUnlockedLevel: maxUnlockedLevel,
       crystals: crystals,
       levelStars: levelStars,
@@ -72,6 +69,7 @@ class ProgressNotifier extends StateNotifier<UserProgress> {
   }
 }
 
-final progressProvider = StateNotifierProvider<ProgressNotifier, UserProgress>((ref) {
+final progressProvider = NotifierProvider<ProgressNotifier, UserProgress>(() {
   return ProgressNotifier();
 });
+
