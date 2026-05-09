@@ -23,25 +23,27 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
   bool isGameOver = false;
   bool isLevelComplete = false;
 
-  BrickManiaGame() : super(gravity: Vector2(0, 0), zoom: 20);
+  BrickManiaGame() : super(
+    gravity: Vector2(0, 0),
+    camera: CameraComponent.withFixedResolution(width: 800, height: 1600),
+  );
 
   @override
   Future<void> onLoad() async {
     await super.onLoad();
     
-    // Configure camera
+    // Configure camera viewfinder
     camera.viewfinder.zoom = 20.0;
     camera.viewfinder.anchor = Anchor.center;
 
     // Add background to the camera backdrop so it isn't affected by world zoom
     camera.backdrop.add(SpaceBackground());
 
-    // Add boundaries
-    final viewport = camera.visibleWorldRect;
-    final topLeft = Vector2(viewport.left, viewport.top);
-    final topRight = Vector2(viewport.right, viewport.top);
-    final bottomLeft = Vector2(viewport.left, viewport.bottom);
-    final bottomRight = Vector2(viewport.right, viewport.bottom);
+    // Fixed World Boundaries (-20 to 20 horizontally, -40 to 40 vertically)
+    final topLeft = Vector2(-20, -40);
+    final topRight = Vector2(20, -40);
+    final bottomLeft = Vector2(-20, 40);
+    final bottomRight = Vector2(20, 40);
 
     add(Boundary(topLeft, topRight)); // Top
     add(Boundary(topLeft, bottomLeft)); // Left
@@ -49,14 +51,14 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     add(Boundary(bottomLeft, bottomRight, isBottom: true)); // Bottom (Loss)
 
     // Add Paddle
-    paddle = Paddle(Vector2(0, viewport.bottom - 2));
+    paddle = Paddle(Vector2(0, 35)); // Near the bottom (40 is bottom edge)
     await add(paddle);
 
     // Add Ball
     await resetBall();
 
     // Generate Level: Dense-5
-    _generateDense5Level(viewport);
+    _generateDense5Level();
   }
 
   Future<void> resetBall() async {
@@ -65,8 +67,8 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     ball.launch();
   }
 
-  void _generateDense5Level(Rect viewport) {
-    const double startY = -15;
+  void _generateDense5Level() {
+    const double startY = -25; // Adjusted for new -40 top boundary
     const int rows = 6;
     const int cols = 9;
     
@@ -194,7 +196,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     children.whereType<PowerUp>().forEach((b) => b.removeFromParent());
     
     // Re-generate
-    _generateDense5Level(camera.visibleWorldRect);
+    _generateDense5Level();
     await resetBall();
     
     overlays.remove('GameOver');
