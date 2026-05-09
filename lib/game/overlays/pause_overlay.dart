@@ -3,46 +3,43 @@ import '../brick_mania_game.dart';
 import '../utils/constants.dart';
 import '../../screens/main_menu_screen.dart';
 
-class GameOverOverlay extends StatelessWidget {
+class PauseOverlay extends StatelessWidget {
   final BrickManiaGame game;
 
-  const GameOverOverlay({super.key, required this.game});
+  const PauseOverlay({super.key, required this.game});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Container(
         width: 300,
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           color: Colors.black87,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: GameConstants.neonOrange, width: 2),
+          border: Border.all(color: GameConstants.neonBlue, width: 2),
           boxShadow: [
-            BoxShadow(color: GameConstants.neonOrange.withOpacity(0.3), blurRadius: 20),
+            BoxShadow(color: GameConstants.neonBlue.withOpacity(0.5), blurRadius: 20),
           ],
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'GAME OVER',
+              'PAUSED',
               style: GameConstants.neonTextFont.copyWith(
-                color: GameConstants.neonOrange,
-                fontSize: 40,
-                shadows: [
-                  const Shadow(color: GameConstants.neonOrange, blurRadius: 15),
-                ],
+                fontSize: 36,
+                color: GameConstants.neonBlue,
+                shadows: [Shadow(color: GameConstants.neonBlue, blurRadius: 10)],
               ),
             ),
-            const SizedBox(height: 16),
-            Text(
-              'SCORE: ${game.score.value}',
-              style: GameConstants.neonTextFont.copyWith(color: Colors.white, fontSize: 24),
-            ),
-            const SizedBox(height: 32),
-            _buildButton('RETRY', GameConstants.neonCyan, () {
-              game.resumeEngine();
+            const SizedBox(height: 30),
+            _buildButton('RESUME', GameConstants.neonLime, () {
+              game.resumeGame();
+            }),
+            const SizedBox(height: 15),
+            _buildButton('RESTART', GameConstants.neonOrange, () {
+              game.resumeGame();
               game.restart();
             }),
             const SizedBox(height: 15),

@@ -21,14 +21,11 @@ class HUD extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'DENSE-5',
-                style: GoogleFonts.outfit(
-                  color: GameConstants.neonCyan,
+                'LEVEL ${game.levelId}',
+                style: GameConstants.neonTextFont.copyWith(
                   fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    const Shadow(color: GameConstants.neonCyan, blurRadius: 10),
-                  ],
+                  color: GameConstants.neonCyan,
+                  shadows: [const Shadow(color: GameConstants.neonCyan, blurRadius: 10)],
                 ),
               ),
               ValueListenableBuilder<int>(
@@ -66,9 +63,10 @@ class HUD extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               IconButton(
-                onPressed: game.restart,
-                icon: const Icon(Icons.refresh, color: Colors.white, size: 30),
-                tooltip: 'Restart',
+                icon: const Icon(Icons.pause, color: Colors.white, size: 28),
+                onPressed: () {
+                  game.pauseGame();
+                },
               ),
             ],
           ),

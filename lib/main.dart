@@ -2,13 +2,18 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'game/brick_mania_game.dart';
 import 'game/overlays/hud.dart';
 import 'game/overlays/game_over_overlay.dart';
 import 'game/overlays/level_complete_overlay.dart';
+import 'game/overlays/pause_overlay.dart';
+import 'screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('progress');
   
   // Set portrait orientation and full screen
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -33,13 +38,14 @@ class BrickManiaApp extends StatelessWidget {
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const GameScreen(),
+      home: const SplashScreen(),
     );
   }
 }
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final int level;
+  const GameScreen({super.key, this.level = 1});
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -51,7 +57,7 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
-    game = BrickManiaGame();
+    game = BrickManiaGame(levelId: widget.level);
   }
 
   @override
@@ -63,6 +69,7 @@ class _GameScreenState extends State<GameScreen> {
           'HUD': (context, game) => HUD(game: game),
           'GameOver': (context, game) => GameOverOverlay(game: game),
           'LevelComplete': (context, game) => LevelCompleteOverlay(game: game),
+          'Pause': (context, game) => PauseOverlay(game: game),
         },
         initialActiveOverlays: const ['HUD'],
       ),

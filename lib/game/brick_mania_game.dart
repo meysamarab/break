@@ -22,11 +22,13 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
   int bricksRemaining = 0;
   bool isGameOver = false;
   bool isLevelComplete = false;
+  final int levelId;
 
-  BrickManiaGame() : super(
+  BrickManiaGame({this.levelId = 1}) : super(
     gravity: Vector2(0, 0),
     camera: CameraComponent.withFixedResolution(width: 800, height: 1600),
   );
+
 
   @override
   Future<void> onLoad() async {
@@ -57,9 +59,10 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     // Add Ball
     await resetBall();
 
-    // Generate Level: Dense-5
-    _generateDense5Level();
+    // Generate Level
+    _generateLevel();
   }
+
 
   Future<void> resetBall() async {
     ball = Ball(Vector2(0, paddle.body.position.y - 1));
@@ -67,10 +70,12 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     ball.launch();
   }
 
-  void _generateDense5Level() {
-    const double startY = -25; // Adjusted for new -40 top boundary
-    const int rows = 6;
-    const int cols = 9;
+  void _generateLevel() {
+    const double startY = -25;
+    
+    // Scale level difficulty by levelId
+    final int rows = math.min(3 + (levelId ~/ 3), 8); // Max 8 rows
+    final int cols = 9;
     
     final colors = [
       GameConstants.neonCyan,
@@ -83,16 +88,25 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
 
     for (int r = 0; r < rows; r++) {
       for (int c = 0; c < cols; c++) {
+        // Leave some empty spaces for higher levels
+        if (levelId > 5 && math.Random().nextDouble() < 0.1) continue;
+
         final x = (c - (cols - 1) / 2) * (GameConstants.brickWidth + GameConstants.brickPadding);
         final y = startY + r * (GameConstants.brickHeight + GameConstants.brickPadding);
         
         BrickType type = BrickType.normal;
         double rand = math.Random().nextDouble();
-        if (rand < 0.05) {
+        
+        // Difficulty scaling
+        double movingChance = math.min(0.02 * levelId, 0.15);
+        double explosiveChance = math.min(0.05 + 0.01 * levelId, 0.2);
+        double durableChance = math.min(0.1 + 0.02 * levelId, 0.4);
+
+        if (rand < movingChance) {
           type = BrickType.moving;
-        } else if (rand < 0.15) {
+        } else if (rand < movingChance + explosiveChance) {
           type = BrickType.explosive;
-        } else if (rand < 0.3) {
+        } else if (rand < movingChance + explosiveChance + durableChance) {
           type = BrickType.durable;
         }
         
@@ -106,6 +120,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
       }
     }
   }
+
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
@@ -177,11 +192,22 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     overlays.add('GameOver');
   }
 
+  void pauseGame() {
+    pauseEngine();
+    overlays.add('Pause');
+  }
+
+  void resumeGame() {
+    overlays.remove('Pause');
+    resumeEngine();
+  }
+
   void completeLevel() {
     isLevelComplete = true;
     pauseEngine();
     overlays.add('LevelComplete');
   }
+
 
   Future<void> restart() async {
     score.value = 0;
@@ -196,8 +222,9 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
     world.children.whereType<PowerUp>().forEach((b) => b.removeFromParent());
     
     // Re-generate
-    _generateDense5Level();
+    _generateLevel();
     await resetBall();
+
     
     overlays.remove('GameOver');
     overlays.remove('LevelComplete');
