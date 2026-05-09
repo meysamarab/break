@@ -180,8 +180,8 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
       final b2 = Ball(Vector2(paddle.body.position.x + 1, paddle.body.position.y - 1));
       await world.add(b1);
       await world.add(b2);
-      b1.body.applyLinearImpulse(Vector2(-5, -GameConstants.ballInitialVelocity));
-      b2.body.applyLinearImpulse(Vector2(5, -GameConstants.ballInitialVelocity));
+      b1.body.linearVelocity = Vector2(-20, -GameConstants.ballInitialSpeed);
+      b2.body.linearVelocity = Vector2(20, -GameConstants.ballInitialSpeed);
     }
     // Other power-ups can be added here
   }
