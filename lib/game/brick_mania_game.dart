@@ -124,7 +124,7 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
 
   @override
   void onDragUpdate(DragUpdateEvent event) {
-    paddle.move(event.localDelta / 20); // Adjust sensitivity
+    paddle.move(event.localDelta / 5); // Adjust sensitivity
   }
 
   void onBrickDestroyed(Brick brick) {

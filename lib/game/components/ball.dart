@@ -52,14 +52,15 @@ class Ball extends BodyComponent with ContactCallbacks {
 
     // Velocity Cap
     final velocity = body.linearVelocity;
-    if (velocity.length > GameConstants.ballVelocityCap) {
-      body.linearVelocity = velocity.normalized() * GameConstants.ballVelocityCap;
+    if (velocity.length > GameConstants.ballSpeedCap) {
+      body.linearVelocity = velocity.normalized() * GameConstants.ballSpeedCap;
     }
 
-    // Ensure ball doesn't get stuck horizontally or vertically
-    if (velocity.length < 5 && velocity.length > 0) {
-        body.linearVelocity = velocity.normalized() * 10;
+    // Ensure ball doesn't get stuck and always maintains a minimum speed
+    if (velocity.length < GameConstants.ballInitialSpeed && velocity.length > 0) {
+        body.linearVelocity = velocity.normalized() * GameConstants.ballInitialSpeed;
     }
+
   }
 
   @override
@@ -84,8 +85,9 @@ class Ball extends BodyComponent with ContactCallbacks {
   }
 
   void launch() {
-    body.applyLinearImpulse(Vector2(0, -GameConstants.ballInitialVelocity));
+    body.linearVelocity = Vector2(0, -GameConstants.ballInitialSpeed);
   }
+
 
   @override
   void beginContact(Object other, Contact contact) {
@@ -101,8 +103,8 @@ class Ball extends BodyComponent with ContactCallbacks {
         final normalizedRelativeX = relativeX / (GameConstants.paddleWidth / 2);
         
         final currentSpeed = body.linearVelocity.length;
-        final newDir = Vector2(normalizedRelativeX * 10, -body.linearVelocity.y.abs()).normalized();
-        body.linearVelocity = newDir * max(currentSpeed, GameConstants.ballInitialVelocity);
+        final newDir = Vector2(normalizedRelativeX * 3, -1).normalized();
+        body.linearVelocity = newDir * max(currentSpeed, GameConstants.ballInitialSpeed);
     }
   }
 }

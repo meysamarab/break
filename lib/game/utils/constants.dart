@@ -24,6 +24,6 @@ class GameConstants {
   static const double brickPadding = 0.2;
 
   // Physics
-  static const double ballVelocityCap = 30.0;
-  static const double ballInitialVelocity = 15.0;
+  static const double ballSpeedCap = 120.0;
+  static const double ballInitialSpeed = 60.0;
 }
