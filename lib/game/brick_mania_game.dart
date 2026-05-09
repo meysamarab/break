@@ -28,8 +28,12 @@ class BrickManiaGame extends Forge2DGame with DragCallbacks {
   Future<void> onLoad() async {
     await super.onLoad();
     
-    // Add background
-    add(SpaceBackground());
+    // Configure camera
+    camera.viewfinder.zoom = 20.0;
+    camera.viewfinder.anchor = Anchor.center;
+
+    // Add background to the camera backdrop so it isn't affected by world zoom
+    camera.backdrop.add(SpaceBackground());
 
     // Add boundaries
     final viewport = camera.visibleWorldRect;
