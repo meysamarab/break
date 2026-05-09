@@ -35017,14 +35017,14 @@ A.Su.prototype={}
 A.a2H.prototype={}
 A.abF.prototype={}
 A.dq.prototype={
-d2(){var s=0,r=A.N(t.H),q=this,p,o,n,m,l,k,j,i,h,g
+d2(){var s=0,r=A.N(t.H),q=this,p,o,n,m,l,k,j,i,h,g,f
 var $async$d2=A.O(function(a,b){if(a===1)return A.K(b,r)
-for(;;)switch(s){case 0:h=t.H
-g=A.da(q.Oq(),h)
+for(;;)switch(s){case 0:g=t.H
+f=A.da(q.Oq(),g)
 s=2
-return A.H(g,$async$d2)
-case 2:g=q.p1
-p=g.ay
+return A.H(f,$async$d2)
+case 2:f=q.p1
+p=f.ay
 o=new A.f(new Float32Array(2))
 o.u3(20)
 n=p.ax.f
@@ -35035,7 +35035,7 @@ p.iC()
 p=t.U
 n=A.au(A.eG(null),null,!1,p)
 o=t.d
-g.CW.cN(new A.Fd(null,0,new A.bP(n,0,0,o),null,new A.bJ([]),new A.bJ([])))
+f.CW.cN(new A.Fd(null,0,new A.bP(n,0,0,o),null,new A.bJ([]),new A.bJ([])))
 m=new A.f(new Float32Array(2))
 m.am(-20,-40)
 l=new A.f(new Float32Array(2))
@@ -35044,23 +35044,24 @@ k=new A.f(new Float32Array(2))
 k.am(-20,40)
 j=new A.f(new Float32Array(2))
 j.am(20,40)
-q.cN(A.O_(m,l,!1))
-q.cN(A.O_(m,k,!1))
-q.cN(A.O_(l,j,!1))
-q.cN(A.O_(k,j,!0))
-g=new A.f(new Float32Array(2))
-g.am(0,35)
-n=A.mI()
+f=q.ok
+f.cN(A.O_(m,l,!1))
+f.cN(A.O_(m,k,!1))
+f.cN(A.O_(l,j,!1))
+f.cN(A.O_(k,j,!0))
+n=new A.f(new Float32Array(2))
+n.am(0,35)
+i=A.mI()
 $.a1()
-i=A.aF()
-i.r=B.i.gu()
+h=A.aF()
+h.r=B.i.gu()
 p=A.au(A.eG(null),null,!1,p)
-g=new A.ov(g,null,null,!0,n,$,i,0,null,null,0,new A.bP(p,0,0,o),null,new A.bJ([]),new A.bJ([]))
-g.pF(null,null,null,null,null,null,!0,t.SV)
-q.bm=g
-g=q.cN(g)
+p=new A.ov(n,null,null,!0,i,$,h,0,null,null,0,new A.bP(p,0,0,o),null,new A.bJ([]),new A.bJ([]))
+p.pF(null,null,null,null,null,null,!0,t.SV)
+q.bm=p
+f=f.cN(p)
 s=3
-return A.H(t.uz.b(g)?g:A.da(g,h),$async$d2)
+return A.H(t.uz.b(f)?f:A.da(f,g),$async$d2)
 case 3:s=4
 return A.H(q.mE(),$async$d2)
 case 4:q.E_()
@@ -35077,7 +35078,7 @@ p=new A.f(new Float32Array(2))
 p.am(0,o-1)
 p=A.aa1(p)
 q.dj=p
-p=q.cN(p)
+p=q.ok.cN(p)
 s=2
 return A.H(t.uz.b(p)?p:A.da(p,t.H),$async$mE)
 case 2:o=q.dj.ax
@@ -35087,48 +35088,49 @@ p.am(0,-15)
 o.xh(p)
 return A.L(null,r)}})
 return A.M($async$mE,r)},
-E_(){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e=null,d=[B.a3,B.a6,B.y2,B.jG,B.cJ,B.jH]
-for(s=t.U,r=t.d,q=0;q<6;++q)for(p=-25+q*1.4,o=0;o<9;++o){n=B.bQ.iz()
-if(n<0.05)m=B.fq
-else if(n<0.15)m=B.jc
-else m=n<0.3?B.fp:B.we
-l=new Float32Array(2)
-l[1]=p
-l[0]=(o-4)*3.7
-k=d[B.h.bs(q,6)]
-j=m===B.fp?2:1
-i=A.mI()
+E_(){var s,r,q,p,o,n,m,l,k,j,i,h,g,f,e,d=null,c=[B.a3,B.a6,B.y2,B.jG,B.cJ,B.jH]
+for(s=this.ok,r=t.U,q=t.d,p=0;p<6;++p)for(o=-25+p*1.4,n=0;n<9;++n){m=B.bQ.iz()
+if(m<0.05)l=B.fq
+else if(m<0.15)l=B.jc
+else l=m<0.3?B.fp:B.we
+k=new Float32Array(2)
+k[1]=o
+k[0]=(n-4)*3.7
+j=c[B.h.bs(p,6)]
+i=l===B.fp?2:1
+h=A.mI()
 $.a1()
-h=new A.eZ(B.aT,B.aa,B.aZ)
-h.r=B.i.gu()
-g=A.au(A.eG(e),e,!1,s)
-f=new A.hg(new A.f(l),m,j,k,e,e,!0,i,$,h,0,e,e,0,new A.bP(g,0,0,r),e,new A.bJ([]),new A.bJ([]))
-l=new A.eZ(B.aT,B.aa,B.aZ)
-l.r=B.i.gu()
-f.hA$=l
-this.cN(f);++this.aU}},
-a53(a){var s,r,q,p,o=this,n=null,m=o.bB,l=m.a,k=a.x2
-m.su(l+(k===B.fp?100:50));--o.aU
-m=a.ax
-m===$&&A.b()
-o.cN(A.amx(a.y1,m.d.a))
-A.abE(128,50)
-if(k===B.jc){m=J.amd(o.gfK().hV(0,t.Ow),new A.O3(a))
-s=A.W(m,m.$ti.h("m.E"))
-for(m=s.length,r=0;r<s.length;s.length===m||(0,A.k)(s),++r)s[r].JX()}if(B.bQ.iz()<0.15){q=B.AR[B.bQ.a4Y(4)]
-m=a.ax
-l=new A.f(new Float32Array(2))
-l.p(m.d.a)
-m=A.mI()
-$.a1()
-k=A.aF()
+g=new A.eZ(B.aT,B.aa,B.aZ)
+g.r=B.i.gu()
+f=A.au(A.eG(d),d,!1,r)
+e=new A.hg(new A.f(k),l,i,j,d,d,!0,h,$,g,0,d,d,0,new A.bP(f,0,0,q),d,new A.bJ([]),new A.bJ([]))
+k=new A.eZ(B.aT,B.aa,B.aZ)
 k.r=B.i.gu()
-p=A.au(A.eG(n),n,!1,t.U)
-m=new A.mb(l,q,n,n,n,n,n,n,!0,m,$,k,0,n,n,0,new A.bP(p,0,0,t.d),n,new A.bJ([]),new A.bJ([]))
-m.pF(n,n,n,n,n,n,!0,t.SV)
-o.cN(m)}if(o.aU<=0){o.p4=!1
-o.ui()
-o.gmt().t(0,"LevelComplete")}},
+e.hA$=k
+s.cN(e);++this.aU}},
+a53(a){var s,r,q,p,o,n=this,m=null,l=n.bB,k=l.a,j=a.x2
+l.su(k+(j===B.fp?100:50));--n.aU
+l=n.ok
+k=a.ax
+k===$&&A.b()
+l.cN(A.amx(a.y1,k.d.a))
+A.abE(128,50)
+if(j===B.jc){k=J.amd(l.gfK().hV(0,t.Ow),new A.O3(a))
+s=A.W(k,k.$ti.h("m.E"))
+for(k=s.length,r=0;r<s.length;s.length===k||(0,A.k)(s),++r)s[r].JX()}if(B.bQ.iz()<0.15){q=B.AR[B.bQ.a4Y(4)]
+k=a.ax
+j=new A.f(new Float32Array(2))
+j.p(k.d.a)
+k=A.mI()
+$.a1()
+p=A.aF()
+p.r=B.i.gu()
+o=A.au(A.eG(m),m,!1,t.U)
+k=new A.mb(j,q,m,m,m,m,m,m,!0,k,$,p,0,m,m,0,new A.bP(o,0,0,t.d),m,new A.bJ([]),new A.bJ([]))
+k.pF(m,m,m,m,m,m,!0,t.SV)
+l.cN(k)}if(n.aU<=0){n.p4=!1
+n.ui()
+n.gmt().t(0,"LevelComplete")}},
 rW(a){return this.a52(a)},
 a52(a){var s=0,r=A.N(t.H),q=this,p
 var $async$rW=A.O(function(b,c){if(b===1)return A.K(c,r)
@@ -35149,48 +35151,49 @@ return A.H(q.mE(),$async$rW)
 case 7:case 5:case 3:return A.L(null,r)}})
 return A.M($async$rW,r)},
 oL(a){return this.a5f(a)},
-a5f(a){var s=0,r=A.N(t.H),q=this,p,o,n,m,l
+a5f(a){var s=0,r=A.N(t.H),q=this,p,o,n,m,l,k
 var $async$oL=A.O(function(b,c){if(b===1)return A.K(c,r)
-for(;;)switch(s){case 0:l=q.bB
-l.su(l.a+200)
+for(;;)switch(s){case 0:k=q.bB
+k.su(k.a+200)
 s=a.x2===B.um?2:3
 break
-case 2:l=q.bm
-l===$&&A.b()
-l=l.ax
-l===$&&A.b()
-l=l.d.a.a
-p=l[0]
-l=l[1]
+case 2:k=q.bm
+k===$&&A.b()
+k=k.ax
+k===$&&A.b()
+k=k.d.a.a
+p=k[0]
+k=k[1]
 o=new A.f(new Float32Array(2))
-o.am(p-1,l-1)
+o.am(p-1,k-1)
 n=A.aa1(o)
 o=q.bm.ax
 o===$&&A.b()
 o=o.d.a.a
-l=o[0]
+k=o[0]
 o=o[1]
 p=new A.f(new Float32Array(2))
-p.am(l+1,o-1)
+p.am(k+1,o-1)
 m=A.aa1(p)
-p=q.cN(n)
-o=t.H
+p=q.ok
+o=p.cN(n)
+k=t.H
 l=t.uz
 s=4
-return A.H(l.b(p)?p:A.da(p,o),$async$oL)
-case 4:p=q.cN(m)
+return A.H(l.b(o)?o:A.da(o,k),$async$oL)
+case 4:p=p.cN(m)
 s=5
-return A.H(l.b(p)?p:A.da(p,o),$async$oL)
-case 5:p=n.ax
-p===$&&A.b()
-l=new A.f(new Float32Array(2))
-l.am(-5,-15)
-p.xh(l)
-l=m.ax
-l===$&&A.b()
+return A.H(l.b(p)?p:A.da(p,k),$async$oL)
+case 5:k=n.ax
+k===$&&A.b()
 p=new A.f(new Float32Array(2))
-p.am(5,-15)
-l.xh(p)
+p.am(-5,-15)
+k.xh(p)
+p=m.ax
+p===$&&A.b()
+k=new A.f(new Float32Array(2))
+k.am(5,-15)
+p.xh(k)
 case 3:return A.L(null,r)}})
 return A.M($async$oL,r)},
 tm(){var s=0,r=A.N(t.H),q=this,p
@@ -35198,9 +35201,10 @@ var $async$tm=A.O(function(a,b){if(a===1)return A.K(b,r)
 for(;;)switch(s){case 0:q.bB.su(0)
 q.bM.su(3)
 q.aU=0
-J.qy(q.gfK().hV(0,t.Ow),new A.O4())
-J.qy(q.gfK().hV(0,t.y0),new A.O5())
-J.qy(q.gfK().hV(0,t.IM),new A.O6())
+p=q.ok
+J.qy(p.gfK().hV(0,t.Ow),new A.O4())
+J.qy(p.gfK().hV(0,t.y0),new A.O5())
+J.qy(p.gfK().hV(0,t.IM),new A.O6())
 q.E_()
 s=2
 return A.H(q.mE(),$async$tm)
