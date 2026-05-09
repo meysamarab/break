@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame_forge2d/flame_forge2d.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 import 'brick.dart';
@@ -91,10 +92,13 @@ class Ball extends BodyComponent with ContactCallbacks {
 
   @override
   void beginContact(Object other, Contact contact) {
+    // Play hit sound for any contact
+    FlameAudio.play('hit.mp3');
+
     if (other is Brick) {
       other.hit();
     }
-    // Handle paddle angle reflection if needed (though Forge2D handles basic bounce)
+    // Handle paddle angle reflection
     if (other is Paddle) {
         // We can tweak the velocity based on where it hit the paddle
         final paddlePos = other.body.position;
